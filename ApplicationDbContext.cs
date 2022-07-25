@@ -22,11 +22,5 @@ namespace MovieSearcher
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Actor> Actors { get; set; }
         public DbSet<MoviesActors> MoviesActors { get; set; }
-        /*
-        public async Task<int> SaveChanges()
-        {
-            return await base.SaveChangesAsync();
-        }
-        */
     }
 }

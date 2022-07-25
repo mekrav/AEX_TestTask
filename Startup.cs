@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Swashbuckle.Swagger;
 
 namespace MovieSearcher
 {
@@ -22,6 +23,8 @@ namespace MovieSearcher
         {
             services.AddControllersWithViews();
 
+            services.AddSwaggerGen();
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -34,6 +37,9 @@ namespace MovieSearcher
         {
             if (env.IsDevelopment())
             {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+
                 app.UseDeveloperExceptionPage();
             }
             else

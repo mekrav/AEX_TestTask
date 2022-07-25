@@ -1,13 +1,18 @@
-import React, { useState, Component } from 'react';
+import React, { Component } from 'react';
 
 export class Home extends Component {
     static displayName = Home.name;
     constructor(props) {
         super(props);
-        this.state = { movies: [], loading: true, value: '' };
+        this.state = JSON.parse(window.localStorage.getItem('state')) || { movies: [], loading: true, value: '' };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    setState(state) {
+        window.localStorage.setItem('state', JSON.stringify(state));
+        super.setState(state);
     }
 
     componentDidMount() {
@@ -15,11 +20,12 @@ export class Home extends Component {
     }
 
     handleChange(event) {
-        this.setState({ value: event.target.value });
+        this.setState({ ...this.state, value: event.target.value })
+        //this.setState({ value: event.target.value });
     }
 
     handleSubmit(event) {
-        this.moviesData();
+        moviesData();
     }
 
     renderMoviesTable(movies) {
@@ -27,15 +33,13 @@ export class Home extends Component {
             <table className='table table-striped' aria-labelledby="tabelLabel">
                 <thead>
                     <tr>
-                        <th>id</th>
                         <th>Title</th>
                         <th>Year</th>
                     </tr>
                 </thead>
                 <tbody>
                     {movies.map(movie =>
-                        <tr key={movie.id}>
-                            <td>{movie.id}</td>
+                        <tr key={movie.title}>
                             <td>{movie.title}</td>
                             <td>{movie.year}</td>
                         </tr>
@@ -54,7 +58,6 @@ export class Home extends Component {
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        Name:
                         <input name ="searchRequest" type="text" value={this.state.value} onChange={this.handleChange} />
                     </label>
                     <input type="submit" value="Submit" />
@@ -65,8 +68,9 @@ export class Home extends Component {
     }
     
     async moviesData() {
-        const response = await fetch('movielist/' + this.state.value);
+        const response = await fetch('MovieList/?searchRequest=' + this.state.value);
         const data = await response.json();
-        this.setState({ movies: data, loading: false});
+        this.setState({ ...this.state, movies: data, loading: false })
+        //this.setState({ movies: data, loading: false});
     }
   }

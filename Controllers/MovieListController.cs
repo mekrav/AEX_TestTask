@@ -4,7 +4,6 @@ using MovieSearcher.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MovieSearcher.Controllers
 {
@@ -25,24 +24,23 @@ namespace MovieSearcher.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Movie> Get()
+        public IEnumerable<Movie> Get([FromQuery] string searchRequest)
         {
-            Movie[] movieList;
-            using (var context = new ApplicationDbContext())
+            IEnumerable<Movie> movieList;
+
+            var context = new ApplicationDbContext();
+            if (string.IsNullOrEmpty(searchRequest))
             {
-                context.Database.EnsureCreated();
                 movieList = context.Movies.ToArray();
             }
-            return movieList;
-        }
-
-        [HttpGet("{searchRequest}")]
-        public IEnumerable<Movie> Get(string searchRequest)
-        {
-            Movie[] movieList;
-            using (var context = new ApplicationDbContext())
-            {
-                movieList = context.Movies.ToArray();
+            else
+            { 
+                movieList =
+                    (from movie in context.Movies
+                    join moviesActors in context.MoviesActors on movie.Id equals moviesActors.MovieId
+                    join actor in context.Actors on moviesActors.ActorId equals actor.Id
+                    where actor.Name.Contains(searchRequest) || movie.Title.Contains(searchRequest) || movie.Genre.Contains(searchRequest)
+                    select movie).Distinct();
             }
             return movieList;
         }
