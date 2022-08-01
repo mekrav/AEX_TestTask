@@ -21,12 +21,9 @@ export class Home extends Component {
 
     handleChange(event) {
         this.setState({ ...this.state, value: event.target.value })
-        //this.setState({ value: event.target.value });
     }
 
-    handleSubmit(event) {
-        moviesData();
-    }
+    handleSubmit(event) {}
 
     renderMoviesTable(movies) {
         return (
@@ -40,7 +37,7 @@ export class Home extends Component {
                 <tbody>
                     {movies.map(movie =>
                         <tr key={movie.title}>
-                            <td>{movie.title}</td>
+                            <td><a href={'movieinfo/' + movie.id}>{movie.title}</a></td>
                             <td>{movie.year}</td>
                         </tr>
                     )}
@@ -62,6 +59,7 @@ export class Home extends Component {
                     </label>
                     <input type="submit" value="Submit" />
                 </form>
+                
                 {contents}
             </div>
         );
@@ -71,6 +69,5 @@ export class Home extends Component {
         const response = await fetch('MovieList/?searchRequest=' + this.state.value);
         const data = await response.json();
         this.setState({ ...this.state, movies: data, loading: false })
-        //this.setState({ movies: data, loading: false});
     }
-  }
+}

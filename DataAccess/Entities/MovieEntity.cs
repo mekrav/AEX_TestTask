@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace MovieSearcher.Models
+namespace MovieSearcher.DataAccess.Entities
 {
-    public class Movie
+    public class MovieEntity
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -10,6 +10,6 @@ namespace MovieSearcher.Models
         public string Genre { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<MoviesActors> MoviesActors { get; set; }
+        public virtual ICollection<ActorMovieLinkEntity> MoviesActors { get; set; }
     }
 }
