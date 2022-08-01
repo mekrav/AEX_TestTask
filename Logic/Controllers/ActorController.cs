@@ -26,14 +26,14 @@ namespace MovieSearcher.Controllers
         [HttpGet]
         public Actor Get([FromQuery] int actorId)
         {
-            Actor actorResult;
+            return ConvertEntityToModel(actorRepository.FindActorById(actorId));
+        }
 
-            var context = new ApplicationDbContext();
-            if (actorId <= 0)
-                return null;
-
-            actorResult = ConvertEntityToModel(context.Actors.First(a => a.Id == actorId));
-            return actorResult;
+        [HttpGet]
+        [Route("inMovie")]
+        public IEnumerable<Actor> Cast([FromQuery] int movieId)
+        {
+            return ConvertEntityToModel(actorRepository.ActorsByMovieId(movieId));
         }
 
         private Actor ConvertEntityToModel(ActorEntity actorEntity)
@@ -47,6 +47,12 @@ namespace MovieSearcher.Controllers
                 Name = actorEntity.Name,
                 BirthDate = actorEntity.BirthDate
             };
+        }
+
+        private IEnumerable<Actor> ConvertEntityToModel(IEnumerable<ActorEntity> actorEntities)
+        {
+            foreach (ActorEntity actorEntity in actorEntities)
+                yield return ConvertEntityToModel(actorEntity);
         }
     }
 }

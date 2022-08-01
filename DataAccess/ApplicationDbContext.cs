@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieSearcher.DataAccess.Entities;
+using System.Threading.Tasks;
 
 namespace MovieSearcher.DataAccess
 {
@@ -7,7 +8,7 @@ namespace MovieSearcher.DataAccess
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"CONNECTION_STRING");
+            optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=MovieSearcherDB;Trusted_Connection=True;MultipleActiveResultSets=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -18,7 +19,6 @@ namespace MovieSearcher.DataAccess
             : base()
         {
         }
-
         public DbSet<MovieEntity> Movies { get; set; }
         public DbSet<ActorEntity> Actors { get; set; }
         public DbSet<ActorMovieLinkEntity> ActorMovieLink { get; set; }

@@ -32,7 +32,6 @@ namespace MovieSearcher.Controllers
         }
 
         [HttpGet]
-        [Route("id")]
         public Movie Get([FromQuery] int movieId)
         {
             return ConvertEntityToModel(movieRepository.FindMovieById(movieId));
