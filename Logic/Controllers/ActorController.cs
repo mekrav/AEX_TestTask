@@ -23,12 +23,22 @@ namespace MovieSearcher.Controllers
             actorRepository = new ActorRepository();
         }
 
+        /// <summary>
+        /// Get actor data by id
+        /// </summary>
+        /// <param name="actorId"></param>
+        /// <returns>Actor object by id</returns>
         [HttpGet]
         public Actor Get([FromQuery] int actorId)
         {
             return ConvertEntityToModel(actorRepository.FindActorById(actorId));
         }
 
+        /// <summary>
+        /// Get movie cast by movieId
+        /// </summary>
+        /// <param name="movieId"></param>
+        /// <returns>Lict of actors in movie by it's id</returns>
         [HttpGet]
         [Route("inMovie")]
         public IEnumerable<Actor> Cast([FromQuery] int movieId)

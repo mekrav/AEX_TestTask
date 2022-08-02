@@ -21,6 +21,11 @@ namespace MovieSearcher.Controllers
             movieRepository = new MovieRepository();
         }
 
+        /// <summary>
+        /// Search movie by name, genre, actor name
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns>List of Movie objects</returns>
         [HttpGet]
         [Route("search")]
         public IEnumerable<Movie> Get([FromQuery] string q)
@@ -31,6 +36,11 @@ namespace MovieSearcher.Controllers
             return ConvertEntityToModel(movieRepository.FindMoviesBySimilarSubstringInInfo(q));
         }
 
+        /// <summary>
+        /// Get movie data by id
+        /// </summary>
+        /// <param name="movieId"></param>
+        /// <returns>Movie oblect by id</returns>
         [HttpGet]
         public Movie Get([FromQuery] int movieId)
         {
