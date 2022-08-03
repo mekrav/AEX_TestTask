@@ -36,5 +36,4 @@ At first sight, required application seems to be simple and If I wos more experi
 So I'd be grateful if you recommend me good materials or courses on React and deployment process.
 
 ## Contacts
-E-mail: mekrav@gmail.com
-Telegram: @mekrav
+E-mail: mekrav@gmail.com, Telegram: @mekrav
