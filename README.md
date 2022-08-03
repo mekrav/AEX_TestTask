@@ -32,7 +32,7 @@ Develop a web application for searching and displaying information about movies.
   Get request. Get cast of movie by it's id.
   
 ## P.S.
-At first sight, required application seems to be simple and If I wos more experienced it would be simple for me too.
+At first sight, required application seems to be simple and If I was more experienced it would be simple for me too.
 So I'd be grateful if you recommend me good materials or courses on React and deployment process.
 
 ## Contacts
